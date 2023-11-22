@@ -7,19 +7,23 @@ import useQuiosco from '../hooks/useQuiosco'
 export default function Home() {
 
   const {categoriaActual} = useQuiosco()
-  // console.log(categoriaActual);
+
+
   return (
-      <Layout pagina={`Menú ${categoriaActual?.nombre}`}> 
+  <Layout pagina={`Menú ${categoriaActual?.nombre}`}> 
      {/* <Layout pagina={ categoriaActual?.nombre ? `Menú ${categoriaActual.nombre}` : 'Menú Café'}> */}
      
      <h1 className='text-4xl font-black'>{categoriaActual?.nombre}</h1>
      
      <p className='text-2xl my-10'>Elige y personaliza tu pedido a continuacion</p>
    
-      {categoriaActual?.productos?.map(producto=>(
-        <Producto key={producto.id} producto={producto} />
-      ) )}
-   
+      <div className="grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+        {categoriaActual?.productos?.map(prod => (
+           <Producto key={prod.id} producto={prod} />
+          ) )
+        }
+      </div>
+       
    </Layout>
   )
 }
