@@ -5,7 +5,6 @@ import ResumenProducto from "../components/ResumenProducto"
 export default function Resumen({}){
 
     const {pedido} = useQuiosco()
-    console.log(pedido.length);
     return (
         <Layout pagina="Resumen">
             <h2 className="text-4xl font-black">Resumen</h2>

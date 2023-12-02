@@ -1,6 +1,8 @@
 import {useState, useEffect, createContext} from "react"
 import axios from "axios"
 import { toast } from "react-toastify"
+import { useRouter } from "next/router"
+
 const QuioscoContext = createContext()
 
 const QuioscoProvider = ({children}) => {
@@ -9,8 +11,16 @@ const QuioscoProvider = ({children}) => {
     const [producto, setProducto] = useState({})
     const [modal, setModal] = useState(false)
     const [pedido, setPedido] = useState([])
+    const [nombre, setNombre] = useState("")
+    const [total, setTotal] = useState(0)
     
+    const router = useRouter()
 
+    const colocarOrden = async (e)=>{
+        e.preventDefault()
+       
+         
+    }
     const obtenerCategorias = async ()=>{
         const { data } = await axios("/api/categorias")
         setCategorias(data)
@@ -27,6 +37,7 @@ const QuioscoProvider = ({children}) => {
         // console.log(categoria[0]);
         // Al ser un array method devuelve un arreglo, por eso pongo categoria[0]
         setCategoriaActual(categoria[0]);
+        router.push("/")
     }
     const handleSetProducto = producto => setProducto(producto)
     const handleChangeModal = () => {
@@ -45,6 +56,25 @@ const QuioscoProvider = ({children}) => {
         }
         setModal(false)
     }
+    const handleEditarCantidad = (id) => {
+        const productoActualizar = pedido.filter(producto=>producto.id=== id)
+        setProducto(productoActualizar[0])
+        handleChangeModal()
+    }
+    const handleEliminarProducto = id => {
+        const pedidoActualizado = pedido.filter(productoActual=>productoActual.id !== id)
+        setPedido(pedidoActualizado)
+    }
+    useEffect(()=>{
+        const nuevoTotal = pedido.reduce(
+         (total, producto)=>(producto.precio*producto.cantidad)+total, 0 
+        )
+        // const nuevoTotal = pedido.reduce(
+        //     (total, producto) => producto.precio * producto.cantidad + total,
+        //     0
+        //   )
+        setTotal(nuevoTotal)
+    },[pedido])
 
     
     return(
@@ -59,6 +89,12 @@ const QuioscoProvider = ({children}) => {
                 handleChangeModal,
                 handleAgregarPedido,
                 pedido,
+                handleEditarCantidad,
+                handleEliminarProducto,
+                nombre,
+                setNombre, 
+                colocarOrden,
+                total
 
             }}
         >

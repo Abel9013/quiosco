@@ -1,7 +1,8 @@
 import Image from "next/image"
 import useQuiosco from "../hooks/useQuiosco"
-const Categoria = ({categoria}) => {
 
+const Categoria = ({categoria}) => {
+  
   const { handleClickCategoria, categoriaActual } = useQuiosco()
   const{nombre, icono, id} = categoria
   
