@@ -18,6 +18,23 @@ const QuioscoProvider = ({children}) => {
 
     const colocarOrden = async (e)=>{
         e.preventDefault()
+        try {
+             await axios.post("api/ordenes",{ pedido, nombre, total, fecha:Date.now().toString()})
+            //  Resetear app
+            
+            setCategoriaActual(categorias[0])
+            setPedido([])
+            setNombre("")
+            setTotal(0)
+
+            toast.success("Pedido realizado con exito")
+            setTimeout(() => {
+                router.push("/")
+            },2500)
+            
+        } catch (error) {
+            console.log(error);
+        }
        
          
     }
@@ -69,10 +86,7 @@ const QuioscoProvider = ({children}) => {
         const nuevoTotal = pedido.reduce(
          (total, producto)=>(producto.precio*producto.cantidad)+total, 0 
         )
-        // const nuevoTotal = pedido.reduce(
-        //     (total, producto) => producto.precio * producto.cantidad + total,
-        //     0
-        //   )
+      
         setTotal(nuevoTotal)
     },[pedido])
 
