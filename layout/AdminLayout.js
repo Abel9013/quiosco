@@ -2,6 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Fases from "../components/Fases";
 
 export default function AdminLayout({ children, pagina }) {
   return (
@@ -18,11 +19,13 @@ export default function AdminLayout({ children, pagina }) {
                     height={100}
                     src="/assets/img/logo.svg"
                     alt="imagen logotipo"
+                    priority="high"
                 />
             </aside>
 
             <main className="md:w-8/12 xl:w-3/4 2xl:w-4/5 h-screen overflow-y-scroll">
                 <div className="p-10">
+                  <Fases />
                     {children}
                 </div>
             </main>
