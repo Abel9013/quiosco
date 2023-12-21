@@ -2,7 +2,8 @@ import { useRouter } from "next/router"
 
 const fases =  [
   {fase:1, nombre:"Para preparar", url:"/admin"},
-  {fase:2, nombre:"Listos", url:"/admin/listos"},
+  {fase:2, nombre:"Procesando", url:"/admin/enProceso"},
+  {fase:3, nombre:"Listos", url:"/admin/listos"},
   
 ] 
 const Fases = () => {
@@ -11,8 +12,10 @@ const Fases = () => {
     let valor 
     if(router.pathname==="/admin"){
       valor=2
+    } else if(router.pathname==="/admin/enProceso"){
+      valor= 55 
     } else {
-      valor= 100 
+      valor = 100
     }
     return valor
   }

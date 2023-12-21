@@ -33,4 +33,5 @@ model Orden {
   total Float
   pedido Json
   estado Boolean @default(false)
+  procesando Boolean @default(false)
 } 

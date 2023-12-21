@@ -9,9 +9,7 @@ const listos = () => {
    const fetcher = () => axios("/api/ordenesListas").then(datos => datos.data)  
    const { data, error, isLoading } = useSWR("/api/ordenesListas", fetcher,{refreshInterval:100})
    const totalDePedidos = data?.reduce((acumulador, pedido) => acumulador + pedido.total, 0)
-   console.log(data);
-   console.log(data?.length);
-   console.log(totalDePedidos);
+
   return (
     <AdminLayout pagina={"admin/listos"}>
         <h1 className="text-4xl font-black">Panel de Administracion</h1>

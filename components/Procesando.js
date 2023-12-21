@@ -1,30 +1,20 @@
 import Image from "next/image"
-import axios from "axios"
 import { toast } from "react-toastify"
-import { formatearDinero } from "../helpers/index"
-const Orden = ({orden}) => {
+import axios from "axios"
+
+const Procesando = ({orden }) => {
   const {id, nombre, total, pedido} = orden
-const cambiarEstadoProcesando = async () => {
-  try {
-    await axios.post(`/api/ordenes/${id}?action=procesar`);
-    toast.success("Orden marcada como procesando");
-  } catch (error) {
-    toast.error("Hubo un error");
-  }
-};
-  // const completarOrden = async () => {
-  //   try {
-  //     // const data = await axios.post(`/api/ordenes/${id}`)
-  //      await axios.post(`/api/ordenes/${id}`)
-  //     toast.success("Orden Lista")
-  //   } catch (error) {
-  //     toast.error("hubo un error")
-  //   }
-  // }
-  
-  
+  const completarOrden = async () => {
+    try {
+      await axios.post(`/api/ordenes/${id}?action=completar`);
+      toast.success("Orden Lista");
+    } catch (error) {
+      toast.error("Hubo un error");
+    }
+  };
+    
   return (
-    <div className="border p-10 space-y-5">
+     <div className="border p-10 space-y-5">
        <h3 className="text-2xl font-bold">Orden:{id}</h3>
        <p className="text-lg font-bold">Cliente:{nombre}</p>
        <div>
@@ -45,18 +35,16 @@ const cambiarEstadoProcesando = async () => {
             </div>
           ))}
        </div>
-       <div className="md:flex md:items-center md:justify-between my-10">
-            <p className="mt 5 font-black text-4xl amber-500">
-              Total a pagar: {formatearDinero(total)}
-            </p>
+         <div className="md:flex md:items-center md:justify-end my-10">
+       
             <button className="bg-indigo-600 hover:bg-indigo-800 text-white mt-5 md:mt-0 py-3 px-10 uppercase font-bold rounded-lg"
               type="button"
-              onClick={cambiarEstadoProcesando}
+              onClick={completarOrden}
             >
-              Procesar Orden</button>
+               Orden lista </button>
        </div>
     </div>
   )
 }
 
-export default Orden
+export default Procesando
